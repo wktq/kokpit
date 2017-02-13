@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController, ActionSheetController } from 'ionic-angular';
-import {AngularFire, FirebaseListObservable} from 'angularfire2';
+import { AngularFire, FirebaseListObservable} from 'angularfire2';
 
 @Component({
   selector: 'page-home',
@@ -16,21 +16,24 @@ export class HomePage {
 
   showOptions(taskId, taskTitle) {
     let actionSheet = this.actionSheetCtrl.create({
-      title: 'What do you want to do?',
+      title: '操作を選択',
       buttons: [
         {
-          text: 'Delete Task',
+          text: '削除する',
           role: 'destructive',
           handler: () => {
             this.removeTask(taskId);
-          }
+          },
+          icon: 'trash',
+          cssClass: 'red'
         },{
-          text: 'Update title',
+          text: '編集する',
           handler: () => {
             this.updateTask(taskId, taskTitle);
-          }
+          },
+          icon: 'create'
         },{
-          text: 'Cancel',
+          text: 'キャンセル',
           role: 'cancel',
           handler: () => {
             console.log('Cancel clicked');
@@ -47,23 +50,23 @@ export class HomePage {
 
   addTask(){
     let prompt = this.alertCtrl.create({
-      title: 'Task Name',
-      message: "Enter a name for this new task you're so keen on adding",
+      title: 'タスクを追加',
+      message: "新しくタスクを追加",
       inputs: [
         {
-          name: 'title',
-          placeholder: 'Title'
-        },
+          name: 'タスク名',
+          placeholder: '例）issueを確認する'
+        }
       ],
       buttons: [
         {
-          text: 'Cancel',
+          text: 'キャンセル',
           handler: data => {
             console.log('Cancel clicked');
           }
         },
         {
-          text: 'Save',
+          text: '追加',
           handler: data => {
             this.tasks.push({
               title: data.title
