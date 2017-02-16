@@ -47,9 +47,10 @@
 <ion-content>
 
   <!-- タスク一覧 -->
-  <ion-list *ngFor="let goal of goals | async" (tap)="showOptions(goal.$key, goal.title)">
+  <ion-list *ngFor="let goal of goals | async">
     <ion-item-divider>
       <ion-icon item-left name="flag"></ion-icon>{{goal.title}}
+      <button ion-button (tap)="updateGoal(goal.$key, goal.title)" item-right outline><ion-icon showWhen="android" outline name="create"></ion-icon><ion-icon showWhen="ios" outline name="create-outline"></ion-icon></button>
     </ion-item-divider>
     <ion-item>
       Hello
