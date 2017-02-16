@@ -50,23 +50,23 @@ export class HomePage {
 
   addTask(){
     let prompt = this.alertCtrl.create({
-      title: 'タスクを追加',
-      message: "新しくタスクを追加",
+      title: 'Song Name',
+      message: "Enter a name for this new song you're so keen on adding",
       inputs: [
         {
-          name: 'タスク名',
-          placeholder: '例）issueを確認する'
-        }
+          name: 'title',
+          placeholder: 'Title'
+        },
       ],
       buttons: [
         {
-          text: 'キャンセル',
+          text: 'Cancel',
           handler: data => {
             console.log('Cancel clicked');
           }
         },
         {
-          text: '追加',
+          text: 'Save',
           handler: data => {
             this.tasks.push({
               title: data.title
