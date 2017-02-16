@@ -7,14 +7,14 @@ import { AngularFire, FirebaseListObservable} from 'angularfire2';
   templateUrl: 'home.html'
 })
 export class HomePage {
-  tasks: FirebaseListObservable<any>;
+  goals: FirebaseListObservable<any>;
 
   constructor(public navCtrl: NavController, public alertCtrl: AlertController,
   af: AngularFire, public actionSheetCtrl: ActionSheetController) {
-    this.tasks = af.database.list('/tasks');
+    this.goals = af.database.list('/goals');
   }
 
-  showOptions(taskId, taskTitle) {
+  showOptions(goalId, goalTitle) {
     let actionSheet = this.actionSheetCtrl.create({
       title: '操作を選択',
       buttons: [
@@ -22,14 +22,14 @@ export class HomePage {
           text: '削除する',
           role: 'destructive',
           handler: () => {
-            this.removeTask(taskId);
+            this.removeGoal(goalId);
           },
           icon: 'trash',
           cssClass: 'red'
         },{
           text: '編集する',
           handler: () => {
-            this.updateTask(taskId, taskTitle);
+            this.updateGoal(goalId, goalTitle);
           },
           icon: 'create'
         },{
@@ -44,14 +44,14 @@ export class HomePage {
     actionSheet.present();
   }
 
-  removeTask(taskId: string){
-    this.tasks.remove(taskId);
+  removeGoal(goalId: string){
+    this.goals.remove(goalId);
   }
 
-  addTask(){
+  addGoal(){
     let prompt = this.alertCtrl.create({
-      title: 'Song Name',
-      message: "Enter a name for this new song you're so keen on adding",
+      title: 'ゴールを追加',
+      message: "タスクをグループ化するゴールを入力してください。",
       inputs: [
         {
           name: 'title',
@@ -68,7 +68,7 @@ export class HomePage {
         {
           text: 'Save',
           handler: data => {
-            this.tasks.push({
+            this.goals.push({
               title: data.title
             });
           }
@@ -78,15 +78,15 @@ export class HomePage {
     prompt.present();
   }
 
-  updateTask(taskId, taskTitle){
+  updateGoal(goalId, goalTitle){
     let prompt = this.alertCtrl.create({
-      title: 'Task Name',
-      message: "Update the name for this task",
+      title: 'Goal Name',
+      message: "Update the name for this goal",
       inputs: [
         {
           name: 'title',
           placeholder: 'Title',
-          value: taskTitle
+          value: goalTitle
         },
       ],
       buttons: [
@@ -99,7 +99,7 @@ export class HomePage {
         {
           text: 'Save',
           handler: data => {
-            this.tasks.update(taskId, {
+            this.goals.update(goalId, {
               title: data.title
             });
           }

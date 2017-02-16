@@ -6,16 +6,16 @@
   </ion-header>
   <ion-content>
     <ion-list>
-      <button ion-item (click)="openPage(loginPage)">
+      <button ion-item (tap)="openPage(loginPage)">
         ダッシュボード
       </button>
-      <button ion-item (click)="openPage(loginPage)">
+      <button ion-item (tap)="openPage(loginPage)">
         プロジェクト
       </button>
-      <button ion-item (click)="openPage(loginPage)">
+      <button ion-item (tap)="openPage(loginPage)">
         Login
       </button>
-      <button ion-item (click)="openPage(signupPage)">
+      <button ion-item (tap)="openPage(signupPage)">
         Signup
       </button>
     </ion-list>
@@ -36,25 +36,37 @@
     </ion-title>
 
     <ion-buttons end>
-      <button ion-button icon-only (click)="presentProfileModal()">
+      <button ion-button icon-only (tap)="openPage()">
         <ion-icon name="options"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
 
 </ion-header>
-<ion-content>
-  <button class="float-btn-task" ion-button icon-only (tap)="addTask()">
-    <ion-icon name="add"></ion-icon>
-  </button>
 
-  <ion-list>
-    <ion-list-header>
-      Inbox
-    </ion-list-header>
-    <ion-item *ngFor="let task of tasks | async" (tap)="showOptions(task.$key, task.title)">
-      {{task.title}}
+<ion-content>
+
+  <!-- タスク一覧 -->
+  <ion-list *ngFor="let goal of goals | async" (tap)="showOptions(goal.$key, goal.title)">
+    <ion-item-divider>
+      <ion-icon item-left name="flag"></ion-icon>{{goal.title}}
+    </ion-item-divider>
+    <ion-item>
+      Hello
     </ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <button ion-button full (tap)="addTask()">タスクを追加</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </ion-list>
+
+  <ion-fab class="goal-btn">
+    <button ion-fab (tap)="addGoal()">
+      <ion-icon name="flag"></ion-icon>
+    </button>
+  </ion-fab>
 
 </ion-content>
