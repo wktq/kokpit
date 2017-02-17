@@ -13,9 +13,9 @@ export class HomePage {
 
   constructor(public navCtrl: NavController, public alertCtrl: AlertController,
   af: AngularFire, public actionSheetCtrl: ActionSheetController) {
-    this.goals = af.database.list('/projects');
+    this.projects = af.database.list('/projects');
     this.goals = af.database.list('/goals');
-    this.goals = af.database.list('/tasks');
+    this.tasks = af.database.list('/tasks');
   }
 
   showOptions(goalId, goalTitle) {
@@ -82,10 +82,46 @@ export class HomePage {
     prompt.present();
   }
 
+  addTask(taskTitle, goalId,){
+    this.tasks.push({
+      title: taskTitle,
+      goal_id: goalId
+    });
+  }
+
+  editTask(taskId, taskTitle) {
+    let prompt = this.alertCtrl.create({
+      title: 'タスクを編集',
+      inputs: [
+        {
+          name: 'title',
+          placeholder: 'Title',
+          value: taskTitle
+        },
+      ],
+      buttons: [
+        {
+          text: 'キャンセル',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: '保存',
+          handler: data => {
+            this.tasks.update(taskId, {
+              title: data.title
+            });
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+
   updateGoal(goalId, goalTitle){
     let prompt = this.alertCtrl.create({
-      title: 'Goal Name',
-      message: "Update the name for this goal",
+      title: 'ゴールを編集',
       inputs: [
         {
           name: 'title',
@@ -95,13 +131,13 @@ export class HomePage {
       ],
       buttons: [
         {
-          text: 'Cancel',
+          text: 'キャンセル',
           handler: data => {
             console.log('Cancel clicked');
           }
         },
         {
-          text: 'Save',
+          text: '保存',
           handler: data => {
             this.goals.update(goalId, {
               title: data.title
@@ -111,6 +147,11 @@ export class HomePage {
       ]
     });
     prompt.present();
+  }
+
+
+  removeTask(taskId: string){
+    this.tasks.remove(taskId);
   }
 
 }
