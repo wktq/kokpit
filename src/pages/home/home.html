@@ -50,7 +50,8 @@
   <ion-list *ngFor="let goal of goals | async">
     <ion-item-divider>
       <ion-icon item-left name="flag"></ion-icon>{{goal.title}}
-      <button ion-button (tap)="updateGoal(goal.$key, goal.title)" item-right outline><ion-icon showWhen="android" outline name="create"></ion-icon><ion-icon showWhen="ios" outline name="create-outline"></ion-icon></button>
+      <button ion-button (tap)="updateGoal(goal.$key, goal.title)" item-right clear><ion-icon name="create"></ion-icon></button>
+      <button ion-button (tap)="removeGoal(goal.$key)" item-right clear style="color: #f53d3d"><ion-icon name="trash"></ion-icon></button>
     </ion-item-divider>
     <ion-item>
       Hello
@@ -58,7 +59,7 @@
     <ion-grid>
       <ion-row>
         <ion-col>
-          <button ion-button full (tap)="addTask()">タスクを追加</button>
+          <button ion-button full (tap)="showAddTaskInput(goal.$key)" clear>タスクを追加</button>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -78,6 +79,7 @@
     <li>Project5</li>
     <li>Project6</li>
     <li>Project7</li>
+    <li><button ion-button style="margin: -8px 0 0 0; background-color: #ff8800"><ion-icon item-left name="add"></ion-icon>プロジェクトを追加</button></li>
   </ion-scroll>
 
 </ion-content>

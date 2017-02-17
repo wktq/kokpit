@@ -22,11 +22,22 @@
 
   .bar-button-md[icon-only] {
     font-size: 12px;
+    color: #fff !important;
   }
 
   .toolbar-title-md {
     font-size: 1.6rem;
   }
+}
+
+.toolbar-background-md {
+  background-color: #555;
+
+
+}
+
+.toolbar-title-md {
+  color: #fff !important;
 }
 
 .fixed-content, .scroll-content {

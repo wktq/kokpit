@@ -7,11 +7,15 @@ import { AngularFire, FirebaseListObservable} from 'angularfire2';
   templateUrl: 'home.html'
 })
 export class HomePage {
+  projects: FirebaseListObservable<any>;
   goals: FirebaseListObservable<any>;
+  tasks: FirebaseListObservable<any>;
 
   constructor(public navCtrl: NavController, public alertCtrl: AlertController,
   af: AngularFire, public actionSheetCtrl: ActionSheetController) {
+    this.goals = af.database.list('/projects');
     this.goals = af.database.list('/goals');
+    this.goals = af.database.list('/tasks');
   }
 
   showOptions(goalId, goalTitle) {
